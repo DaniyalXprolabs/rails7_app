@@ -12,25 +12,34 @@
         <li class="nav-item">
           <%= link_to 'About', about_path, class: 'nav-link' %>  
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+        <li class="nav-item">
+          <%= link_to 'Blog', posts_path, class: 'nav-link' %>  
         </li>
+        
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <% if user_signed_in? %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= current_user.email %>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <%= link_to 'New Blog', new_post_path, class: 'dropdown-item' %>
+            </li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: 'btn' %>
+            <li>
+          </ul>
+        </li>
+        <% else %>
+          <%= link_to "Sign up", new_user_registration_path, class: 'btn btn-warning' %>
+          <%= link_to "Sign In", new_user_session_path, class: 'btn btn-primary' %>
+        <% end %>
     </div>
   </div>
 </nav>
