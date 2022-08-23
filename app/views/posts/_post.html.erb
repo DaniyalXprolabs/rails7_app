@@ -5,6 +5,11 @@
   </p>
 
   <p>
+    <strong>Posted by:</strong>
+    <%= link_to "#{post.user.name}", users_profile_path(:user_id => post.user.id) %>
+  </p>
+
+  <p>
     <strong>Number of views:</strong>
     <%= post.views %>
   </p>
