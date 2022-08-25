@@ -12,6 +12,11 @@
       <div class="container comment-container">
         <h5><%= link_to comment.user.name, users_profile_path(:user_id => comment.user.id) %></h5>
         <p><%= comment.body %></p>
+        <% if user_signed_in? and current_user.id == comment.user.id %>
+          <button type="button" class="btn btn-success">Edit</button>
+          <br>
+          <%= button_to "Delete", [@post, comment], method: :delete, class: "btn btn-danger" %>
+        <% end %>
       </div>
     <% end %>
     <h3>Add a comment</h3>
