@@ -21,7 +21,7 @@
         </li>
       </ul>
       <% if user_signed_in? %>
-        <li class="nav-item dropdown">
+        <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <%= current_user.email %>
           </a>
@@ -38,7 +38,7 @@
               <%= button_to("Log Out", destroy_user_session_path, method: :delete) %>
             <li>
           </ul>
-        </li>
+        </div>
         <% else %>
           <%= link_to "Sign up", new_user_registration_path, class: 'btn btn-warning' %>
           <%= link_to "Sign In", new_user_session_path, class: 'btn btn-primary' %>
