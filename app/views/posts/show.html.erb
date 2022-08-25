@@ -1,12 +1,20 @@
-<%= render @post %>
-<% if current_user.id == @post.user.id %>
-  <div>
-    <%= link_to "Edit this post", edit_post_path(@post) %>
-    <%= button_to "Destroy this post", @post, method: :delete %>
-  </div>
-<% end %>
-<%= link_to "Back to posts", posts_path %>
 <div class="container">
-  <h3>Add a comment</h3>
-  <%= render 'comments/form', post: @post %>
+  <%= render @post %>
+  <% if user_signed_in? and current_user.id == @post.user.id %>
+    <div>
+      <%= link_to "Edit this post", edit_post_path(@post) %>
+      <%= button_to "Destroy this post", @post, method: :delete %>
+    </div>
+  <% end %>
+  <%= link_to "Back to posts", posts_path %>
+  <div class="container">
+    <% @comments.each do |comment| %>
+      <div class="container comment-container">
+        <h5><%= link_to comment.user.name, users_profile_path(:user_id => comment.user.id) %></h5>
+        <p><%= comment.body %></p>
+      </div>
+    <% end %>
+    <h3>Add a comment</h3>
+    <%= render 'comments/form', post: @post %>
+  </div>
 </div>
