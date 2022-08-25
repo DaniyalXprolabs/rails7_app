@@ -12,7 +12,7 @@ class PostsController < ApplicationController
   # GET /posts/1 or /posts/1.json
   def show
     @post.update(views: @post.views + 1)
-    @comment = @post.comments.all(created_at: :desc)
+    @comments = @post.comments.all
   end
 
   # GET /posts/new
