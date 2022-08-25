@@ -2,7 +2,7 @@
 
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: %i[create destroy]
-  before_action :get_post, only: %i[create destroy index]
+  before_action :find_post, only: %i[create destroy index]
 
   def index
     @comments = @post.comments.all
@@ -22,12 +22,12 @@ class CommentsController < ApplicationController
   def destroy
     @comment = @post.comments.find(params[:id])
     @comment.destroy
-    redirect_to @post
+    redirect_to post_path(@post)
   end
 
   private
 
-  def get_post
+  def find_post
     @post = Post.find(params[:post_id])
   end
 
