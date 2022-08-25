@@ -1,0 +1,25 @@
+<div class="container">
+  <% @comments.each do |comment| %>
+    <div class="container comment-container">
+      <h5><%= link_to comment.user.name, users_profile_path(:user_id => comment.user.id) %></h5>
+      <%= comment.body %></p>
+      <hr>
+      <% if (comment.updated_at - comment.created_at) > 1 %>
+        <span>
+          Edited <%= time_ago_in_words(comment.updated_at) %>
+        </span>
+      <% else %>
+        Created <%= time_ago_in_words(comment.created_at) %>
+      <% end %>
+      <hr>
+      <% if user_signed_in? and current_user.id == comment.user.id %>
+        <div class="btn-group float-right">
+          <%= button_to "Edit comment", nil, remote: true, class: "btn btn-success comment-btn" %>
+          <%= button_to "Delete", [@post, comment], method: :delete, class: "btn btn-danger comment-btn" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <h3>Add a comment</h3>
+  <%= render 'comments/form', post: @post %>
+</div>
